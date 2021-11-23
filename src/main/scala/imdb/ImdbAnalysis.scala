@@ -112,27 +112,7 @@ object ImdbAnalysis {
 	val joined = filteredTitles.join(filteredRating).map(x => x._2._1)
 
 	return joined
-	// joined.foreach(println)
-	// return joined.map(x => )
 
-
-	// all_valid.foreach(println) 	
- 	// println
- 	// filteredRating.foreach(println)
- 	// println(filteredRating("t01"))
- 	// val filteredTitles = l1.filter( x => filteredRating.(x.tconst)
- 		// && (x.runtimeMinutes.getOrElse(-1)>=0 && (1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
-
-    // O(n)?
-    // val filteredTitles = l1
-    // .filter(x => (x.runtimeMinutes.getOrElse(-1)>=0 && (1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
-    // 
-    // O(1)? 
-    // val moviesFiltered = filteredTitles.filter(x => filteredRating(x.tconst)).map(x => x.primaryTitle.getOrElse(""))
-    // filteredTitles.foreach(println)
-    // val data = List("bruh")
-    // val rdd2 = sc.parallelize(data)
-    
     // return rdd2
 
 
@@ -145,7 +125,9 @@ object ImdbAnalysis {
 
   // Hint: There could be an input RDD that you do not really need in your implementation.
   def task4(l1: RDD[TitleBasics], l2: RDD[TitleCrew], l3: RDD[NameBasics]): RDD[(String, Int)] = {
-    ???
+    val validMovies = l1
+    .filter(x => ((1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
+    .map(x => (x.tconst,1))
   }
 
   def main(args: Array[String]) {
