@@ -4,7 +4,7 @@
 [0m[[0minfo[0m] [0m[31m- 'task3' should work for (specific) lists with two elements *** FAILED ***[0m[0m
 [0m[[0minfo[0m] [0m[31m  scala.NotImplementedError: an implementation is missing[0m[0m
 [0m[[0minfo[0m] [0m[31m  at scala.Predef$.$qmark$qmark$qmark(Predef.scala:288)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at imdb.ImdbAnalysis$.task3(ImdbAnalysis.scala:143)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at imdb.ImdbAnalysis$.task3(ImdbAnalysis.scala:123)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at imdb.ImdbSuite.$anonfun$new$6(ImdbSuite.scala:126)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
@@ -14,16 +14,4 @@
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.TestSuite.withFixture(TestSuite.scala:196)[0m[0m
 [0m[[0minfo[0m] [0m[31m  ...[0m[0m
-[0m[[0minfo[0m] [0m[31m- 'task4' should work for small lists *** FAILED ***[0m[0m
-[0m[[0minfo[0m] [0m[31m  scala.NotImplementedError: an implementation is missing[0m[0m
-[0m[[0minfo[0m] [0m[31m  at scala.Predef$.$qmark$qmark$qmark(Predef.scala:288)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at imdb.ImdbAnalysis$.task4(ImdbAnalysis.scala:148)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at imdb.ImdbSuite.$anonfun$new$9(ImdbSuite.scala:140)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:20)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)[0m[0m
-[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[32m- 'task4' should work for small lists[0m[0m

@@ -105,7 +105,7 @@ object ImdbAnalysis {
  	// val filteredRating = l2.map(x => (x.tconst,x.numVotes >= 500000 && x.averageRating >= 7.5))
  	// println(filteredRating)
  	// println(filteredRating.lookup("t01"))
- 	 val filteredTitles = l1.filter( x => (x.runtimeMinutes.getOrElse(-1)>=0 && (1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
+ 	val filteredTitles = l1.filter( x => (x.runtimeMinutes.getOrElse(-1)>=0 && (1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
  	 .map(x => (x.tconst,x.primaryTitle.getOrElse("")))
  	// val filteredTitles = l1.map(x => (x.tconst,(x.runtimeMinutes.getOrElse(-1)>=0 && (1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie")))
 
@@ -125,10 +125,42 @@ object ImdbAnalysis {
 
   // Hint: There could be an input RDD that you do not really need in your implementation.
   def task4(l1: RDD[TitleBasics], l2: RDD[TitleCrew], l3: RDD[NameBasics]): RDD[(String, Int)] = {
-    val validMovies = l1
-    .filter(x => ((1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
-    .map(x => (x.tconst,1))
+    // val validMovies = l1
+    // .filter(x => ((1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
+    // .map(x => (x.tconst,1))
+  	
+  	val validMovies = l1.map(x => { if((2010 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2021) && x.titleType.getOrElse("") == "movie") (x.tconst,1) else (x.tconst,0)
+     }) 
+  	println("bruh1")
+  	val movies = sc.broadcast(validMovies.collectAsMap())
+	
+	def param0= (accu:Int, v:String) => accu + movies.value.getOrElse(v,0)
+  	def param1= (accu1:Int, accu2:Int) => accu1 + accu2
+	val Dudes = l3.map(x => (x.primaryName.getOrElse(""),x.knownForTitles.getOrElse(List()).aggregate(0)(param0,param1)))
+	val validDudes = Dudes.filter(x => x._2 >1)
+	
+	println("bruh")
+	// validMovies.foreach(println)
+
+
+
+	// val ans = validDudes.map(x => x.aggregate(0)(param0,param1))
+    validDudes.foreach(x=>println(x)) 
+    // ans.foreach(println)
+    println("bruh2")
+    // val validDudes = l2.map(x => (x.))
+
+    val data = List(("bruh",1))
+    val rdd2 = sc.parallelize(data)
+    // println(rdd2)
+    // return rdd2
+    return validDudes 
   }
+
+
+
+
+
 
   def main(args: Array[String]) {
     val durations = timed("Task 1", task1(titleBasicsRDD).collect().toList)
