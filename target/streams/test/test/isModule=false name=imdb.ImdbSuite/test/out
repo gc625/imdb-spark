@@ -2,16 +2,7 @@
 [0m[[0minfo[0m] [0m[32m- 'task1' should work for a (specific) list with two elements[0m[0m
 [0m[[0minfo[0m] [0m[32m- 'task2' should work for (specific) lists with two elements[0m[0m
 [0m[[0minfo[0m] [0m[31m- 'task3' should work for (specific) lists with two elements *** FAILED ***[0m[0m
-[0m[[0minfo[0m] [0m[31m  scala.NotImplementedError: an implementation is missing[0m[0m
-[0m[[0minfo[0m] [0m[31m  at scala.Predef$.$qmark$qmark$qmark(Predef.scala:288)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at imdb.ImdbAnalysis$.task3(ImdbAnalysis.scala:123)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at imdb.ImdbSuite.$anonfun$new$6(ImdbSuite.scala:126)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:20)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.funsuite.AnyFunSuiteLike$$anon$1.apply(AnyFunSuiteLike.scala:226)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.TestSuite.withFixture(TestSuite.scala:196)[0m[0m
-[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[31m  List((1,bruh,b2)) did not equal List((9,Animation,Name2), (9,Documentary,Name1), (9,Short,Name2)) (ImdbSuite.scala:130)[0m[0m
+[0m[[0minfo[0m] [0m[31m  Analysis:[0m[0m
+[0m[[0minfo[0m] [0m[31m  List(0: (1,bruh,b2) -> (9,Animation,Name2), 1: -> (9,Documentary,Name1), 2: -> (9,Short,Name2))[0m[0m
 [0m[[0minfo[0m] [0m[32m- 'task4' should work for small lists[0m[0m

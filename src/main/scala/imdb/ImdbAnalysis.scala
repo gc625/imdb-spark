@@ -40,7 +40,7 @@ object ImdbAnalysis {
 
   def task1(rdd: RDD[TitleBasics]): RDD[(Float, Int, Int, String)] = {
   	val filteredRDD = rdd
-  	.filter(x => x.runtimeMinutes.getOrElse(0) != 0 && x.genres.getOrElse(List())!= List())
+  	.filter(x => x.runtimeMinutes.getOrElse(-1) >= 0 && x.genres.getOrElse(List())!= List() )
   	
   	// val filteredRDD = rdd
   	// .filter(x => x.runtimeMinutes.getOrElse(0) != 0 && x.genres.getOrElse(List())!= List())
@@ -91,8 +91,8 @@ object ImdbAnalysis {
 
   	// formattedResults.foreach(println)
   	
-    val data = List((1.23f, 1,1,"bruh"))
-    val rdd2 = sc.parallelize(data)
+    // val data = List((1.23f, 1,1,"bruh"))
+    // val rdd2 = sc.parallelize(data)
     // println(rdd2)
     // return rdd2
     return formattedResults
@@ -120,7 +120,56 @@ object ImdbAnalysis {
   }
 
   def task3(l1: RDD[TitleBasics], l2: RDD[TitleRatings]): RDD[(Int, String, String)] = {
-    ???
+    
+  	val ratingsMap = l2.map(x => (x.tconst,x.averageRating))
+  	val ratingsLookup = sc.broadcast(ratingsMap.collectAsMap())
+  	val filtered  = l1.filter(x => ratingsLookup.value.getOrElse(x.tconst,-1.0f)>=0.0 &&x.titleType.getOrElse("") == "movie" 
+  		&& x.startYear.getOrElse(0) >= 1900 && x.startYear.getOrElse(0) <= 1999)
+  	// ratingsLookup.value.lookup(x.tconst)
+  	// ratingsLookup = [(tconst, rating), ...]
+  	val decadeGenreTitleRating =  l1.flatMap(x => x.genres.getOrElse(List()).map(y=> 
+  		// if(ratingsLookup.value.getOrElse(x.tconst,-1.0f)>=0.0 &&x.titleType.getOrElse("") == "movie" 
+  		// && x.startYear.getOrElse(0) >= 1900 && x.startYear.getOrElse(0) <= 1999)
+  		((x.startYear.getOrElse(-1)/10)%10, Tuple2(y, (x.primaryTitle.getOrElse(""),ratingsLookup.value.getOrElse(x.tconst,-1.0f))))
+  		// else (-1,-1)
+  	))
+  	// println(decadeGenreTitleRating)
+
+  	val grouped = decadeGenreTitleRating.groupByKey().map(x => )
+  	// decadeGenreTitleRating.foreach(println)
+  	grouped.foreach(println)
+  	// grouped
+  	// type GenreCollector = (Float,String)
+  	// // (sumTime,numMovies), minTime,MaxTime , GENRE
+  	// type GenreData = (Int,(Float,String))
+
+
+  	// val createGenreCombiner = (year:Int,genre:String,titleName:String) => (runtime,1,runtime,runtime)
+
+  	
+  	// val genreCombiner = (collector: GenreCollector, runtime: Int) => {
+  	// 	val (cumTime,numMovies,minTime,maxTime) = collector
+  	// 	(cumTime+runtime,numMovies+1,math.min(runtime,minTime),math.max(runtime,maxTime))
+  	// }
+
+  	// val genreMerger = (c1: GenreCollector, c2: GenreCollector) => {
+  	// 	val (cumTime1,numMovies1,minTime1,maxTime1) = c1
+  	// 	val (cumTime2,numMovies2,minTime2,maxTime2) = c2
+
+  	// 	(cumTime1+cumTime2,numMovies1+numMovies2,math.min(minTime1,minTime2),math.max(maxTime1,maxTime2))
+  	// }
+
+
+  	// val results: RDD[(GenreData)] = genreRuntime.combineByKey(createGenreCombiner,genreCombiner,genreMerger)
+
+  	// (decade:INT, primaryTitle: String, averageRating: Float)
+
+  	// val filteredRDD =  l1.
+    val data = List((1,"bruh","b2"))
+    val rdd2 = sc.parallelize(data)
+    // println(rdd2)
+    return rdd2
+
   }
 
   // Hint: There could be an input RDD that you do not really need in your implementation.
@@ -129,29 +178,35 @@ object ImdbAnalysis {
     // .filter(x => ((1990 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2018) && x.titleType.getOrElse("") == "movie"))
     // .map(x => (x.tconst,1))
   	
-  	val validMovies = l1.map(x => { if((2010 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2021) && x.titleType.getOrElse("") == "movie") (x.tconst,1) else (x.tconst,0)
+  	val validMovies = l1
+  	.map(x => { if((2010 <= x.startYear.getOrElse(0) && x.startYear.getOrElse(0) <= 2021)) (x.tconst,1) 
+  		else (x.tconst,0)
      }) 
-  	println("bruh1")
+  	// println("bruh1")
   	val movies = sc.broadcast(validMovies.collectAsMap())
 	
+	// movies.value.foreach(println)
 	def param0= (accu:Int, v:String) => accu + movies.value.getOrElse(v,0)
   	def param1= (accu1:Int, accu2:Int) => accu1 + accu2
 	val Dudes = l3.map(x => (x.primaryName.getOrElse(""),x.knownForTitles.getOrElse(List()).aggregate(0)(param0,param1)))
+	
+	// Dudes.foreach(println)
+	// Dudes.foreach(println)
 	val validDudes = Dudes.filter(x => x._2 >1)
 	
-	println("bruh")
+	// validDudes.foreach(println)
+	// println("bruh")
 	// validMovies.foreach(println)
 
 
-
 	// val ans = validDudes.map(x => x.aggregate(0)(param0,param1))
-    validDudes.foreach(x=>println(x)) 
+    // validDudes.foreach(x=>println(x)) 
     // ans.foreach(println)
-    println("bruh2")
+    // println("bruh2")
     // val validDudes = l2.map(x => (x.))
 
-    val data = List(("bruh",1))
-    val rdd2 = sc.parallelize(data)
+    // val data = List(("bruh",1))
+    // val rdd2 = sc.parallelize(data)
     // println(rdd2)
     // return rdd2
     return validDudes 
